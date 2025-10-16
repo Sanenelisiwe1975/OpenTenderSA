@@ -1,60 +1,67 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 export default function Dashboard() {
-  // Placeholder data for demo
+  const [searchTerm, setSearchTerm] = useState('');
+  const [provinceFilter, setProvinceFilter] = useState('all');
+
   const tenders = [
-    { id: 1, title: 'Road Construction', department: 'Transport', province: 'Gauteng', status: 'open' },
-    { id: 2, title: 'School Supplies', department: 'Education', province: 'Western Cape', status: 'awarded' },
+    { id: 1, title: 'Road Construction', department: 'Transport', province: 'Gauteng', status: 'open', deadline: '2024-08-15' },
+    { id: 2, title: 'School Supplies', department: 'Education', province: 'Western Cape', status: 'awarded', deadline: '2024-07-20' },
+    { id: 3, title: 'Hospital Equipment', department: 'Health', province: 'KwaZulu-Natal', status: 'open', deadline: '2024-09-01' },
+    { id: 4, title: 'IT Services', department: 'Finance', province: 'Gauteng', status: 'closed', deadline: '2024-06-30' },
   ];
-  const flagged = [
-    { id: 2, issue: 'Repeated vendor awards', tender: 'School Supplies' },
-  ];
-  const stats = {
-    vendorDominance: 'Vendor A: 60%',
-    avgDelay: '5 days',
-  };
+
+  const filteredTenders = tenders
+    .filter(t => provinceFilter === 'all' || t.province === provinceFilter)
+    .filter(t => t.title.toLowerCase().includes(searchTerm.toLowerCase()));
 
   return (
-    <div className="p-6">
-      <h1 className="text-3xl font-bold mb-4">OpenTender SA Dashboard</h1>
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Browse Tenders</h2>
-        <table className="min-w-full bg-white border">
-          <thead>
-            <tr>
-              <th className="py-2 px-4 border">Title</th>
-              <th className="py-2 px-4 border">Department</th>
-              <th className="py-2 px-4 border">Province</th>
-              <th className="py-2 px-4 border">Status</th>
-            </tr>
-          </thead>
-          <tbody>
-            {tenders.map(t => (
-              <tr key={t.id}>
-                <td className="py-2 px-4 border">{t.title}</td>
-                <td className="py-2 px-4 border">{t.department}</td>
-                <td className="py-2 px-4 border">{t.province}</td>
-                <td className="py-2 px-4 border">{t.status}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Flagged Irregularities</h2>
-        <ul className="list-disc pl-6">
-          {flagged.map(f => (
-            <li key={f.id} className="text-red-600">{f.issue} in <strong>{f.tender}</strong></li>
-          ))}
-        </ul>
-      </section>
-      <section className="mb-8">
-        <h2 className="text-xl font-semibold mb-2">Statistics</h2>
-        <div className="grid grid-cols-2 gap-4">
-          <div className="bg-gray-100 p-4 rounded">Vendor Dominance: {stats.vendorDominance}</div>
-          <div className="bg-gray-100 p-4 rounded">Average Delay: {stats.avgDelay}</div>
+    <div className="bg-gray-50 min-h-screen">
+      <header className="bg-white shadow-sm">
+        <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+          <h1 className="text-3xl font-bold leading-tight text-gray-900">Tender Dashboard</h1>
         </div>
-      </section>
+      </header>
+      <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div className="mb-6 flex justify-between items-center">
+          <div className="w-1/2">
+            <input
+              type="text"
+              placeholder="Search tenders..."
+              className="w-full px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              onChange={e => setSearchTerm(e.target.value)}
+            />
+          </div>
+          <div>
+            <select
+              className="px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500"
+              onChange={e => setProvinceFilter(e.target.value)}
+            >
+              <option value="all">All Provinces</option>
+              {[...new Set(tenders.map(t => t.province))].map(p => <option key={p} value={p}>{p}</option>)}
+            </select>
+          </div>
+        </div>
+        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {filteredTenders.map(tender => (
+            <div key={tender.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+              <div className="p-6">
+                <div className="flex justify-between items-start">
+                  <h3 className="text-xl font-semibold text-gray-800 mb-2">{tender.title}</h3>
+                  <span className={`px-3 py-1 text-sm font-semibold rounded-full ${tender.status === 'open' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
+                    {tender.status}
+                  </span>
+                </div>
+                <p className="text-gray-600 text-sm mb-1">{tender.department}</p>
+                <p className="text-gray-600 text-sm mb-4">{tender.province}</p>
+                <div className="text-sm text-gray-500">
+                  <span>Deadline: {tender.deadline}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </main>
     </div>
   );
 }
