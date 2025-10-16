@@ -1,100 +1,115 @@
 # OpenTender SA
 
-**A transparent, AI-powered tender platform for South Africa**
-
----
+A transparent, AI-powered tender platform for South Africa that leverages blockchain technology for accountability in public procurement.
 
 ## Overview
 
-OpenTender SA is a blockchain-backed platform that makes South African public procurement **transparent, accountable, and citizen-friendly**. It records tenders, bids, and awards immutably on-chain while using AI to flag suspicious activities such as repeated vendor awards, price anomalies, and linked suppliers. A publicly accessible dashboard allows citizens, journalists, and oversight bodies to monitor tenders in real-time, ensuring fairness and responsible use of public funds.
+OpenTender SA is a blockchain-backed platform that makes South African public procurement transparent, accountable, and citizen-friendly. It records tenders, bids, and awards immutably on Solana while using AI to flag suspicious activities.
 
----
+### Key Features
 
-## Features
-
-* **Immutable Tender Records**: All tender actions recorded on blockchain to prevent tampering.
-* **AI-based Suspicious Activity Detection**: Flags unusual bidding patterns, repeated vendor wins, or price irregularities.
-* **Public Dashboard**: User-friendly interface for browsing tenders, viewing flagged activities, and downloading reports.
-* **Anonymous Reporting**: Secure whistleblower portal for reporting procurement irregularities.
-* **Off-chain Document Storage**: Tender documents and large files stored on IPFS or Arweave, linked via on-chain hashes.
-
----
-
-## Tech Stack
-
-| Layer          | Technology                            |
-| -------------- | ------------------------------------- |
-| Frontend       | React, TailwindCSS                    |
-| Backend        | Node.js / Python (FastAPI)            |
-| Blockchain     | Solana (on-chain tender records)      |
-| Database       | PostgreSQL                            |
-| AI / Analytics | Python (scikit-learn, PyTorch)        |
-| File Storage   | IPFS / Arweave                        |
-| Hosting        | AWS Africa Cape Town / Azure SA North |
-
----
+- **Immutable Tender Records**: All tender actions recorded on Solana blockchain
+- **AI-based Suspicious Activity Detection**: Automated flagging of unusual patterns
+- **Public Dashboard**: User-friendly interface for monitoring tenders
+- **Anonymous Reporting**: Secure whistleblower portal
+- **Off-chain Storage**: IPFS/Arweave integration for documents
 
 ## Architecture
 
-1. **Frontend** – Citizen-facing dashboard for viewing tenders, flagged activities, and submitting reports.
-2. **Backend** – Handles AI analytics, off-chain storage, and communication with Solana smart contracts.
-3. **On-chain** – Solana programs store tender metadata, bid hashes, and award events immutably.
-4. **Off-chain** – Large tender documents stored on decentralized storage, with references on-chain.
+### Tech Stack
 
----
+- **Frontend**: React + TailwindCSS
+- **Backend**: Python (FastAPI)
+- **Blockchain**: Solana
+- **Database**: PostgreSQL
+- **AI/ML**: Python (scikit-learn)
+- **Storage**: IPFS/Arweave
 
-## How It Works
+### Components
 
-1. A department posts a tender → details hashed and stored on-chain.
-2. Vendors submit bids → bid hashes recorded on-chain.
-3. AI analyzes bids and past data → flags suspicious patterns.
-4. Dashboard displays tenders, flagged issues, and analytics for public review.
-5. Whistleblowers submit reports securely → routed to oversight bodies.
+1. **Solana Smart Contract** (`/smart_contracts`)
+   - Handles tender metadata storage
+   - Records bid submissions
+   - Manages tender awards
 
----
+2. **Backend API** (`/backend`)
+   - FastAPI server for API endpoints
+   - Solana program interaction
+   - AI analysis integration
+   - IPFS/Arweave storage management
 
-## Impact
+3. **Frontend Dashboard** (`/frontend`)
+   - React-based UI
+   - Real-time tender monitoring
+   - Interactive data visualization
+   - Secure reporting interface
 
-* **Transparency**: Every tender and bid is auditable and immutable.
-* **Accountability**: Suspicious activities are flagged automatically.
-* **Public Empowerment**: Citizens and journalists gain actionable insights.
-* **Fraud Prevention**: Early detection reduces corruption risks and improves fund allocation.
+4. **AI Analysis** (`/ai_storage`)
+   - Anomaly detection
+   - Pattern recognition
+   - Risk scoring
 
----
+## Local Development Setup
 
-## Installation (Hackathon Demo)
+### Prerequisites
 
-```bash
-# Clone the repo
-git clone https://github.com/yourusername/opentender-sa.git
-cd opentender-sa
+- Node.js (v16+)
+- Python (3.9+)
+- Solana CLI tools
+- PostgreSQL
+- IPFS or Arweave node
 
-# Install dependencies
-npm install
+### Installation
 
-# Start frontend
-npm run dev
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/yourusername/OpenTenderSA.git
+   cd OpenTenderSA
+   ```
 
-# Backend (Python)
-cd backend
-pip install -r requirements.txt
-uvicorn main:app --reload
-```
+2. **Backend Setup**
+   ```bash
+   cd backend
+   python -m venv venv
+   source venv/bin/activate  # On Windows: venv\Scripts\activate
+   pip install -r requirements.txt
+   ```
 
----
+3. **Frontend Setup**
+   ```bash
+   cd frontend
+   npm install
+   ```
+
+4. **Smart Contract Setup**
+   ```bash
+   cd smart_contracts
+   # Follow Solana program deployment instructions
+   ```
+
+### Running the Application
+
+1. **Start the Backend**
+   ```bash
+   cd backend
+   uvicorn app:app --reload
+   ```
+
+2. **Start the Frontend**
+   ```bash
+   cd frontend
+   npm run dev
+   ```
+
+3. **Access the Application**
+   - Frontend: http://localhost:3000
+   - Backend API: http://localhost:8000
+   - API Docs: http://localhost:8000/docs
 
 ## Contributing
 
-We welcome contributions! You can help with:
-
-* Smart contract development (Solana/Rust)
-* AI model improvement for flagging anomalies
-* Frontend UX enhancements
-* Integration with additional open data sources
-
----
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct and the process for submitting pull requests.
 
 ## License
 
-MIT License – OpenTender SA is free and open for civic-tech development.
-
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
