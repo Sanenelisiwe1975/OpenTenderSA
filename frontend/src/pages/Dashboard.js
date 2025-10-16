@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard() {
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,8 +45,9 @@ export default function Dashboard() {
         </div>
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filteredTenders.map(tender => (
-            <div key={tender.id} className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
-              <div className="p-6">
+            <Link to={`/tender/${tender.id}`} key={tender.id}>
+              <div className="bg-white shadow-lg rounded-lg overflow-hidden transform hover:-translate-y-1 transition-transform duration-300">
+                <div className="p-6">
                 <div className="flex justify-between items-start">
                   <h3 className="text-xl font-semibold text-gray-800 mb-2">{tender.title}</h3>
                   <span className={`px-3 py-1 text-sm font-semibold rounded-full ${tender.status === 'open' ? 'bg-green-100 text-green-800' : 'bg-gray-100 text-gray-800'}`}>
@@ -59,6 +61,7 @@ export default function Dashboard() {
                 </div>
               </div>
             </div>
+            </Link>
           ))}
         </div>
       </main>
