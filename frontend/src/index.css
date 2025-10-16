@@ -1,0 +1,7 @@
+/* Basic CSS for OpenTender SA */
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: #f5f6fa;
+  color: #222;
+}
