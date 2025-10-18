@@ -13,3 +13,6 @@ numpy==1.21.2
 solana==0.23.0
 web3.py==5.23.1
 ipfshttpclient==0.8.0
+borsh-construct==0.1.0
+base58==2.1.1
+construct==2.10.67
